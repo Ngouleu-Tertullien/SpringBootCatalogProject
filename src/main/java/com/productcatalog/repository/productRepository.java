@@ -35,12 +35,13 @@ import com.productcatalog.model.Product;
         Category category = byId.get();
 
         //tie Author to Book
-        product.setCategory(category);
+        //product.setCategory(category);
 
         productRepository productRepo = null;
 		Product product1 = productRepo.save(product);
         //tie Book to Author
         //products.add(product1);
+		
         
         return product1;
 

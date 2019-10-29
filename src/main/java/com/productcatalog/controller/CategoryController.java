@@ -27,22 +27,22 @@ public class CategoryController {
 	@Autowired
 	private categoryRepository categoryRepo;
 	
-	@GetMapping("/category")
+	@GetMapping("/api/category")
 	public List<Category> getAllCategories(Sort categories){
 		return categoryRepo.findAll(categories);
 	}
 	
-	@GetMapping("/category/{CatId}")
+	@GetMapping("/api/category/{CatId}")
 	public Optional<Category> retrieveOne(@PathVariable long CatId){
 		return categoryRepo.findById(CatId);
 	}
 	
-	@PostMapping("/category")
+	@PostMapping("/api/category")
 	public Category createCategory(@Valid @RequestBody Category category) {
 		return categoryRepo.save(category);
 	}
 	
-	@PutMapping("/category/{CatId}")
+	@PutMapping("/api/category/{CatId}")
 	public Optional<Category> updateCategory(@PathVariable Long CatId, @Valid @RequestBody Category categoryUpdate) {
 		return categoryRepo.findById(CatId).map(category ->{
 			category.setName(categoryUpdate.getName());
@@ -51,7 +51,7 @@ public class CategoryController {
 	}
 	
 	
-	@DeleteMapping("/category/{CatId}")
+	@DeleteMapping("/api/category/{CatId}")
 	public Optional<Object> deletecategory(@PathVariable Long CatId){
 		return categoryRepo.findById(CatId).map(category -> {
 			categoryRepo.delete(category);

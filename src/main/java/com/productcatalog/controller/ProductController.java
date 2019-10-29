@@ -26,35 +26,38 @@ public class ProductController {
 	@Autowired
 	private productRepository productRepo;
 	
-	@GetMapping("/product")
+	@GetMapping("/api/products")
 	public List<Product> getAllProducts(Sort product){
 		return productRepo.findAll(product);
 	}
 	
-	@GetMapping("/product/{ProdId}")
+	@GetMapping("/api/products/{ProdId}")
 	public Optional<Product> retrieveOne(@PathVariable long ProdId){
 		return productRepo.findById(ProdId);
 	}
 	
-	@PostMapping("/product/{CatId}")
+	@PostMapping("/api/products/category/{CatId}")
 	public Product createProduct(@PathVariable long CatId, @Valid @RequestBody Product product) {		
+		
+		product.setCategory(new Category(CatId));
 		return productRepo.save(product);
 	}
 	
-	@PutMapping("/product/{ProdId}")
-	public Optional<Product> updateProduct(@PathVariable Long ProdId, @Valid @RequestBody Product productUpdate) {
+	@PutMapping("/api/products/{ProdId}/category/{CatId}")
+	public Optional<Product> updateProduct(@PathVariable("ProdId") Long ProdId, @PathVariable("CatId") Long CatId ,@Valid @RequestBody Product productUpdate) {
 		return productRepo.findById(ProdId).map(product ->{
 			product.setName(productUpdate.getName());
 			product.setDetails(productUpdate.getDetails());
 			product.setPrice(productUpdate.getPrice());
 			product.setQuantity(productUpdate.getQuantity());
-			product.setCategory(productUpdate.getCategory());
+			
+			product.setCategory(new Category(CatId));
 			return productRepo.save(product);
 		})/*.orElseThrow(() -> new ResourceNotFoundException("CatId" + CatId + " not found"))*/;
 	}
 	
 	
-	@DeleteMapping("/product/{ProdId}")
+	@DeleteMapping("/api/products/{ProdId}")
 	public Optional<Object> deleteproduct(@PathVariable Long ProdId){
 		return productRepo.findById(ProdId).map(product -> {
 			productRepo.delete(product);

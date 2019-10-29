@@ -57,9 +57,7 @@ public class DBData implements CommandLineRunner{
     
        
        
-       
-       
-       System.out.println("Customers Saves" + productRepository);   
+        System.out.println("Customers Saves" + productRepository);   
     
 		
 		 System.out.println("Loading Customers Data");

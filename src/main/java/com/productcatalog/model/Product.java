@@ -58,15 +58,22 @@ public class Product {
     public Product() {
     	
     }
-    
+    //THE CONSTRUCTOR
 	public Product(String name, String details, int quantity, int price, Category category) {
 		super();
-		//this.ProdId = ProdId;
 		this.name = name;
 		this.Details = details;
 		this.quantity = quantity;
 		this.price = price;
 		this.category = category;
+	}
+	
+	public long getProdId() {
+		return ProdId;
+	}
+
+	public void setProdId(long prodId) {
+		ProdId = prodId;
 	}
 
 	public String getName() {
@@ -101,28 +108,7 @@ public class Product {
 		this.price = price;
 	}
 	
-	@JsonIgnore
-	public long getCatId() {	
-		return category.getId();
-	}
 	
-	@JsonIgnore
-	public String getCatName() {
-		return category.getName();
-	}
-	
-	public void setCatId(Long CatId) {
-		category.setId(CatId);
-	}
-	
-
-	public long getProdId() {
-		return ProdId;
-	}
-
-	public void setProdId(long prodId) {
-		ProdId = prodId;
-	}
 @JsonIgnore
 	public Category getCategory() {
 		return category;
@@ -131,12 +117,29 @@ public class Product {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
+	
+	//WILL BE USEFUL TO DISPLAY THE CATEGORY INSIDE THE PRODUCT WHEN CALLED
+	@JsonIgnore
+	public long getCatId() {	
+		return category.getId();
+	}
+	
+	//TO TAKE INFORMATION ABOUT THE CATEGORY SINCE IT IS IN RELATIONSHIP
+	@JsonIgnore //INORDER NOT TO DISPLAY IT IN THE RESULT
+	public String getCatName() {
+		return category.getName();
+	}
+	
+	public void setCatId(Long CatId) {
+		category.setId(CatId);
+	}
 
+    //INITIAL DEFINATION OF CATEGORY INSIDE THE PRODUCT ON DISPLAY
 	public Category getCategoryId() {
 		category = new Category(getCatId(), getCatName());
 		return category;
 	}
-
+     //USEFUL FOR SETTING UP THE CATEGORY IN THE DBDATA
 	public void setCatId(Category category) {
 		this.category = category;
 	}
